@@ -4,6 +4,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @ApiModel(value = "Employee Api model documentation", description = "Model")
@@ -15,15 +19,23 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    @ApiModelProperty(value = "Username id field of user object")
+    @NotNull(message = "User Name cannot be null")
+    @Min(value = 5, message = "First Name should not be less than 5")
+    @Max(value = 15, message = "First Name should not be greater than 15")
+    @ApiModelProperty(value = "Username id field of user object", required = true, position = 0)
     private String userName;
-    @ApiModelProperty(value = "firstName id field of user object")
+    @NotNull(message = "First Name cannot be null")
+    @ApiModelProperty(value = "firstName id field of user object", required = true, position = 1)
     private String firstName;
-    @ApiModelProperty(value = "lastName id field of user object")
+    @NotNull(message = "Last Name cannot be null")
+    @ApiModelProperty(value = "lastName id field of user object", required = true, position = 2)
     private String lastName;
-    @ApiModelProperty(value = "emailAddress id field of user object")
+    @NotNull(message = "Email cannot be null")
+    @Email(regexp = ".*@.*\\..*", message = "Email should be valid")
+    @ApiModelProperty(value = "emailAddress id field of user object", required = true, position = 3)
     private String emailAddress;
-    @ApiModelProperty(value = "Date id field of user object")
+    @NotNull(message = "Date cannot be null")
+    @ApiModelProperty(value = "Date id field of user object", required = true, position = 4)
     private LocalDate date;
 
     public Employee() {
