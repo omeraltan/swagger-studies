@@ -26,7 +26,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService service;
 
-    @GetMapping
+    @GetMapping("/")
     @ApiOperation(value = "Employee List Method")
     public ResponseEntity<List<Employee>> getAll(){
         List<Employee> employeeList = service.findAll();
@@ -40,7 +40,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employee);
     }
 
-    @GetMapping("/username/{userName}")
+    @GetMapping("/{userName}")
     @ApiOperation(value = "Employee information method with name attribute")
     public ResponseEntity<Optional<Employee>> getEmployeeWithName(@PathVariable(value = "userName") String userName){
         Optional<Employee> employee = service.findByUserName(userName);
@@ -53,7 +53,7 @@ public class EmployeeController {
         return ResponseEntity.ok(Optional.ofNullable(service.update(employee)));
     }
 
-    @PostMapping
+    @PostMapping("/")
     @ApiOperation(value = "Employee create method")
     public ResponseEntity<Optional<Employee>> createEmployee(@RequestBody Employee employee){
         return ResponseEntity.ok(Optional.ofNullable(service.save(employee)));
